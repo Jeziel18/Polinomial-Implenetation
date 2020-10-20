@@ -19,6 +19,8 @@ public interface Polynomial extends Iterable<Term> {
 	public int degree();
 	
 	public double evaluate(double x);
+
+	public boolean equals(Polynomial P2);
 	
 
 	

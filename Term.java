@@ -5,5 +5,9 @@ public interface Term {
 	public int getExponent();
 	
 	public double evaluate(double x);
-	
+
+
+
+
+
 }
