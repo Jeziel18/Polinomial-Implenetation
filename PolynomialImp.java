@@ -26,8 +26,10 @@ public class PolynomialImp implements Polynomial {
 
                 if(this.theTerms.get(i).getExponent() == temp.get(j).getExponent()){
                     TermImp result = new TermImp(this.theTerms.get(i).getCoefficient() + temp.get(j).getCoefficient(), this.theTerms.get(i).getExponent());
+                    if(!(result.getCoefficient() == 0)){
+                        r.theTerms.add(result);
+                    }
 
-                    r.theTerms.add(result);
 
                     if(!(i==this.theTerms.size())){
                         i++;
