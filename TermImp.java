@@ -54,21 +54,23 @@ public class TermImp implements Term {
                 lista.add((String) stringTok.nextElement());
             }
 
-            if(lista.size() == 0){
-                throw new IllegalArgumentException("Illegal argument");
+            if(lista.size() != 0){
+                if(lista.size() == 1){   //from the form x^b
+                    Integer e = Integer.parseInt(lista.get(0));
+                    r = new TermImp(1, e);
+                }
+
+                else{   // from the form ax^b
+                    Double c = Double.parseDouble(lista.get(0));
+                    Integer e = Integer.parseInt(lista.get(1));
+                    if(c != 0.0){
+                        r = new TermImp(c, e);
+                    }
+
+
+                }
             }
 
-            if(lista.size() == 1){   //from the form x^b
-                Integer e = Integer.parseInt(lista.get(0));
-                r = new TermImp(1, e);
-            }
-
-            else{   // from the form ax^b
-                Double c = Double.parseDouble(lista.get(0));
-                Integer e = Integer.parseInt(lista.get(1));
-                r = new TermImp(c, e);
-
-            }
 
         }
 
@@ -86,12 +88,18 @@ public class TermImp implements Term {
 
             else{    //From the form ax^1
                 Double c = Double.parseDouble(lista.get(0));
-                r = new TermImp(c, 1);
+                if(c != 0){
+                    r = new TermImp(c, 1);
+                }
+
             }
         }
 
         else{   // only a constant, ax^0
-            r = new TermImp(Double.parseDouble(z), 0);
+            Double c = Double.parseDouble(z);
+            r = new TermImp(c, 0);
+
+
         }
 
         return r;

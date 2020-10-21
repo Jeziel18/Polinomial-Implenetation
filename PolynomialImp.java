@@ -64,7 +64,6 @@ public class PolynomialImp implements Polynomial {
         return add(P2.multiply(-1));  //mulitply by -1 and use add
     }
 
-
     @Override
     public Polynomial multiply(Polynomial P2) {
         PolynomialImp r = new PolynomialImp("");
@@ -72,16 +71,21 @@ public class PolynomialImp implements Polynomial {
 
         for(int i = 0; i<this.theTerms.size(); i++){
             for(int j = 0; j<p.theTerms.size(); j++){
-                TermImp temp = new TermImp(this.theTerms.get(i).getCoefficient() * p.theTerms.get(j).getCoefficient(), this.theTerms.get(i).getExponent() + p.theTerms.get(j).getExponent());
-                r.theTerms.add(temp);
+                if(this.theTerms.get(i).getCoefficient() != 0 && p.theTerms.get(j).getCoefficient() != 0){   //Check if coefficient is 0, if it is, don't do the multiplication
+                    TermImp temp = new TermImp(this.theTerms.get(i).getCoefficient() * p.theTerms.get(j).getCoefficient(), this.theTerms.get(i).getExponent() + p.theTerms.get(j).getExponent());
+                    r.theTerms.add(temp);
+
+                }
+
+
             }
         }
 
         for(int i = 0; i<r.theTerms.size(); i++){
-            for(int j = i+1; j<r.theTerms.size(); j++){
+            for(int j = i+1; j<r.theTerms.size(); j++){   //Cheking if the exponent are equals so it can sum them
                 if(r.theTerms.get(i).getExponent() == r.theTerms.get(j).getExponent()){
                     double constantSum = r.theTerms.get(i).getCoefficient() + r.theTerms.get(j).getCoefficient();
-                    if(constantSum != 0){
+                    if(!(constantSum == 0)){
                         r.theTerms.set(i, new TermImp(constantSum, r.theTerms.get(j).getExponent()));
                         r.theTerms.remove(j);
                         if(r.theTerms.get(j).getExponent() == r.theTerms.get(i).getExponent()){
@@ -97,11 +101,7 @@ public class PolynomialImp implements Polynomial {
             }
         }
 
-
-
-
-
-        return r;
+        return r.organizerOfPolynomial();
     }
 
     @Override
@@ -210,4 +210,22 @@ public class PolynomialImp implements Polynomial {
             this.theTerms.add(nextT);
         }
     }
+
+    public Polynomial organizerOfPolynomial() {   // Helper method that helps in organizing the terms
+        PolynomialImp temp = new PolynomialImp("");
+        for(Term a :this){
+            temp.theTerms.add(a);   // bring the original array elements to work on them
+        }
+        for(int i = 0; i<temp.theTerms.size()-1; i++){
+            if(temp.theTerms.get(i).getExponent() < temp.theTerms.get(i+1).getExponent()){
+                TermImp m = new TermImp(temp.theTerms.get(i).getCoefficient(),temp.theTerms.get(i).getExponent());
+                temp.theTerms.set(i,temp.theTerms.get(i+1));
+                temp.theTerms.set(i+1,m);
+            }
+        }
+        return temp;
+    }
+
+
+
 }
