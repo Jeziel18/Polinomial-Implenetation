@@ -24,7 +24,7 @@ public class PolynomialImp implements Polynomial {
 
         for(int i = 0; i<this.theTerms.size(); ){
             for(int j = 0; j<temp.size(); ){
-                // if exponets are equals Sum the coefficient
+                // if exponents are equals Sum the coefficient
                 if(this.theTerms.get(i).getExponent() == temp.get(j).getExponent()){
                     TermImp result = new TermImp(this.theTerms.get(i).getCoefficient() + temp.get(j).getCoefficient(), this.theTerms.get(i).getExponent());
                     if(!(result.getCoefficient() == 0)){
@@ -76,8 +76,6 @@ public class PolynomialImp implements Polynomial {
                     r.theTerms.add(temp);
 
                 }
-
-
             }
         }
 
@@ -85,7 +83,7 @@ public class PolynomialImp implements Polynomial {
             for(int j = i+1; j<r.theTerms.size(); j++){   //Cheking if the exponent are equals so it can sum them
                 if(r.theTerms.get(i).getExponent() == r.theTerms.get(j).getExponent()){
                     double constantSum = r.theTerms.get(i).getCoefficient() + r.theTerms.get(j).getCoefficient();
-                    if(!(constantSum == 0)){
+                    if(constantSum != 0){
                         r.theTerms.set(i, new TermImp(constantSum, r.theTerms.get(j).getExponent()));
                         r.theTerms.remove(j);
                         if(r.theTerms.get(j).getExponent() == r.theTerms.get(i).getExponent()){
